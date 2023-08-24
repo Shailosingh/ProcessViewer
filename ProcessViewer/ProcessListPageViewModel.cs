@@ -14,11 +14,32 @@ namespace ProcessViewer
         [ObservableProperty]
         List<ProcessViewModel> processList;
 
+        [ObservableProperty]
+        bool hasMainWindowFilterEnabled;
+
         public ProcessListPageViewModel()
         {
             Process[] processArray = Process.GetProcesses();
+            ProcessList = processArray.Select(p => new ProcessViewModel(p)).ToList();
 
-            processList = processArray.Select(p => new ProcessViewModel(p)).ToList();
+            FilterChanged();
+        }
+
+        private void RefreshList()
+        {
+            Process[] processArray = Process.GetProcesses();
+            ProcessList = processArray.Select(p => new ProcessViewModel(p)).ToList();
+        }
+
+        [RelayCommand]
+        private void FilterChanged()
+        {
+            RefreshList();
+                
+            if (HasMainWindowFilterEnabled)
+            {
+                ProcessList = ProcessList.Where(p => p.MainWindowName != "~").ToList();
+            }
         }
     }
 }

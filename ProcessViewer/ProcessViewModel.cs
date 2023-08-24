@@ -49,7 +49,7 @@ namespace ProcessViewer
             {
                 ModulePath = CurrentProcess.MainModule?.FileName ?? "~"; //Puts ~ if NULL
             }
-            catch(Win32Exception e)
+            catch(Exception e)
             {
                 ModulePath = e.Message;
             }

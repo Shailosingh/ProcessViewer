@@ -30,7 +30,16 @@
     </Page.Resources>
 
     <Grid>
-        <DataGrid ItemsSource="{Binding ProcessList}" AutoGenerateColumns="False" IsReadOnly="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <CheckBox Content="Only Processes With MainWindow" IsChecked="{Binding HasMainWindowFilterEnabled}" Command="{Binding FilterChangedCommand}"/>
+        </StackPanel>
+        
+        <DataGrid ItemsSource="{Binding ProcessList}" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Process Name" Binding="{Binding ProcessName}" Width="*"/>
                 <DataGridTextColumn Header="Process ID" Binding="{Binding ProcessID}" Width="*"/>
