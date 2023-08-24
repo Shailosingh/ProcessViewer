@@ -44,10 +44,10 @@ namespace ProcessViewer
 
             ProcessName = CurrentProcess.ProcessName;
             ProcessID = CurrentProcess.Id;
-            MainWindowName = CurrentProcess.MainWindowTitle;
+            MainWindowName = CurrentProcess.MainWindowTitle == "" ? "~" : CurrentProcess.MainWindowTitle; //Puts ~ if there is no Main Window title
             try
             {
-                ModulePath = CurrentProcess.MainModule?.FileName ?? "N/A";
+                ModulePath = CurrentProcess.MainModule?.FileName ?? "~"; //Puts ~ if NULL
             }
             catch(Win32Exception e)
             {
@@ -64,7 +64,7 @@ namespace ProcessViewer
             ProcessName = CurrentProcess.ProcessName;
             ProcessID = CurrentProcess.Id;
             MainWindowName = CurrentProcess.MainWindowTitle;
-            ModulePath = CurrentProcess.MainModule?.FileName ?? "N/A";
+            ModulePath = CurrentProcess.MainModule?.FileName ?? "~";
             WorkingSetBytes = CurrentProcess.WorkingSet64;
             NumberOfThreads = CurrentProcess.Threads.Count;
         }

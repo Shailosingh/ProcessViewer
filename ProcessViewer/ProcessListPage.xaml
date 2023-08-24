@@ -25,7 +25,7 @@
 
         <Style x:Name="ProcGridCellStyle" TargetType="DataGridCell">
             <Setter Property="FontFamily" Value="M PLUS 1"/>
-            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="TextBlock.HorizontalAlignment" Value="Right"/>
         </Style>
     </Page.Resources>
 
