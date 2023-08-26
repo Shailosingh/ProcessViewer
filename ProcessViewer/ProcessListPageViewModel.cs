@@ -98,38 +98,6 @@ namespace ProcessViewer
                     process.Refresh();
                 });
             }
-
-            /*
-            //Iterate through each element in the list, consider the filter, and if it is not running, remove it
-            for(int index = 0; index < ProcessList.Count; index++)
-            {
-                ProcessList[index].Refresh();
-
-                //If the process is not running or it has been filtered out, remove it
-                bool isFilteredOut = HasMainWindowFilterEnabled && !ProcessList[index].HasMainWindow();
-                if (!ProcessList[index].IsRunning() || isFilteredOut)
-                {
-                    ProcessIDs.Remove(ProcessList[index].ProcessID);
-                    ProcessList.RemoveAt(index);
-                    index--;
-                }
-            }
-
-            //Get new array of running processes
-            Process[] processArray = Process.GetProcesses();
-
-            //For each new process (not in hashset) that is not filtered out by user, add to hashset and list
-            foreach(Process proc in processArray)
-            {
-                bool isFiltered = HasMainWindowFilterEnabled && (proc.MainWindowHandle == IntPtr.Zero);
-
-                if(!(ProcessIDs.Contains(proc.Id) || isFiltered))
-                {
-                    ProcessIDs.Add(proc.Id);
-                    ProcessList.Add(new ProcessViewModel(proc));
-                }
-            }
-            */
         }
     }
 }

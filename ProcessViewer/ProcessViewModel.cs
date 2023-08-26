@@ -29,14 +29,20 @@ namespace ProcessViewer
         string modulePath;
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FormattedPrivateWorkingSet))]
-        long privateWorkingSetBytes;
+        [NotifyPropertyChangedFor(nameof(FormattedWorkingSet))]
+        long workingSetBytes;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FormattedPrivateBytes))]
+        long privateBytes;
 
         [ObservableProperty]
         int numberOfThreads;
 
         //Formatted datafields
-        public string FormattedPrivateWorkingSet => $"{PrivateWorkingSetBytes / 1024:N0} K";
+        public string FormattedPrivateBytes => $"{PrivateBytes / 1024:N0} K";
+        public string FormattedWorkingSet => $"{WorkingSetBytes / 1024:N0} K";
+
 
         //Constructor
         public ProcessViewModel(Process process)
@@ -46,7 +52,8 @@ namespace ProcessViewer
 
             ProcessName = CurrentProcess.ProcessName;
             ProcessID = CurrentProcess.Id;
-            PrivateWorkingSetBytes = CurrentProcess.PrivateMemorySize64;
+            WorkingSetBytes = CurrentProcess.WorkingSet64;
+            PrivateBytes = CurrentProcess.PrivateMemorySize64;
             NumberOfThreads = CurrentProcess.Threads.Count;
             MainWindowName = CurrentProcess.MainWindowTitle == "" ? "~" : CurrentProcess.MainWindowTitle; //Puts ~ if there is no Main Window title
 
@@ -66,7 +73,8 @@ namespace ProcessViewer
             ProcessID = 0;
             MainWindowName = "~";
             ModulePath = "~";
-            PrivateWorkingSetBytes = 0;
+            WorkingSetBytes = 0;
+            PrivateBytes = 0;
             NumberOfThreads = 0;
         }
 
@@ -76,11 +84,12 @@ namespace ProcessViewer
 
             try
             {
-                PrivateWorkingSetBytes = CurrentProcess.PrivateMemorySize64;
+                WorkingSetBytes = CurrentProcess.WorkingSet64;
+                PrivateBytes = CurrentProcess.PrivateMemorySize64;
                 NumberOfThreads = CurrentProcess.Threads.Count;
                 MainWindowName = CurrentProcess.MainWindowTitle == "" ? "~" : CurrentProcess.MainWindowTitle; //Puts ~ if there is no Main Window title
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 DefaultValues();
             }

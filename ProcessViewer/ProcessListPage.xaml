@@ -45,7 +45,8 @@
                 <DataGridTextColumn Header="Process ID" Binding="{Binding ProcessID}" Width="*"/>
                 <DataGridTextColumn Header="Main Window Name" Binding="{Binding MainWindowName}" Width="*"/>
                 <DataGridTextColumn Header="Module Path" Binding="{Binding ModulePath}" Width="*"/>
-                <DataGridTextColumn Header="Memory Usage" Binding="{Binding FormattedPrivateWorkingSet}" Width="*"/>
+                <DataGridTextColumn Header="Private Bytes" Binding="{Binding FormattedPrivateBytes}" Width="*"/>
+                <DataGridTextColumn Header="Working Set" Binding="{Binding FormattedWorkingSet}" Width="*"/>
                 <DataGridTextColumn Header="Thread Count" Binding="{Binding NumberOfThreads}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
