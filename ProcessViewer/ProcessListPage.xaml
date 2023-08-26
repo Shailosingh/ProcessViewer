@@ -36,7 +36,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <CheckBox Content="Only Processes With MainWindow" IsChecked="{Binding HasMainWindowFilterEnabled}" Command="{Binding FilterChangedCommand}"/>
+            <CheckBox Content="Only Processes With MainWindow" IsChecked="{Binding HasMainWindowFilterEnabled}" Command="{Binding Refresh}"/>
         </StackPanel>
         
         <DataGrid ItemsSource="{Binding ProcessList}" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1">
@@ -45,7 +45,7 @@
                 <DataGridTextColumn Header="Process ID" Binding="{Binding ProcessID}" Width="*"/>
                 <DataGridTextColumn Header="Main Window Name" Binding="{Binding MainWindowName}" Width="*"/>
                 <DataGridTextColumn Header="Module Path" Binding="{Binding ModulePath}" Width="*"/>
-                <DataGridTextColumn Header="Memory Usage" Binding="{Binding FormattedWorkingSet}" Width="*"/>
+                <DataGridTextColumn Header="Memory Usage" Binding="{Binding FormattedPrivateWorkingSet}" Width="*"/>
                 <DataGridTextColumn Header="Thread Count" Binding="{Binding NumberOfThreads}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
