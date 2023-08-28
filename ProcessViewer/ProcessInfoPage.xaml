@@ -6,9 +6,72 @@
       xmlns:local="clr-namespace:ProcessViewer"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProcessInfoPage">
+      Title="ProcessInfoPage"
+      Unloaded="Page_Unloaded"
+      Loaded="Page_Loaded">
+
+    <Page.DataContext>
+        <local:ProcessInfoPageViewModel/>
+    </Page.DataContext>
 
     <Grid>
-        <TextBlock Text="Process Page"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Column="0" Background="AliceBlue" Margin="5, 5, 0, 0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Process Name: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CurrentProcess.ProcessName}"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Process ID: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CurrentProcess.ProcessID}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Main Window Name: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CurrentProcess.MainWindowName}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Module Path: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CurrentProcess.ModulePath}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Black"/>
+
+            <StackPanel Orientation="Vertical" Grid.Column="2" Background="Beige" Margin="0, 5, 5, 0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Working Set: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CurrentProcess.FormattedWorkingSet}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Private Set: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CurrentProcess.FormattedPrivateBytes}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Number of Threads: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CurrentProcess.NumberOfThreads}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" Background="Black"/>
+
+        <TextBox Grid.Row="2" />
     </Grid>
 </Page>

@@ -5,7 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProcessViewer"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800">
+      d:DesignHeight="450" d:DesignWidth="800"
+      Unloaded="Page_Unloaded"
+      Loaded="Page_Loaded">
     
     <Page.DataContext>
         <local:ProcessListPageViewModel/>
@@ -38,8 +40,11 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <CheckBox Content="Only Processes With MainWindow" IsChecked="{Binding HasMainWindowFilterEnabled}" Command="{Binding Refresh}"/>
         </StackPanel>
-        
-        <DataGrid ItemsSource="{Binding ProcessList}" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1">
+
+        <DataGrid ItemsSource="{Binding ProcessListCollectionView}" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1">
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding SelectedProcessCommand}" CommandParameter="{Binding ProcessListCollectionView/}"/>
+            </DataGrid.InputBindings>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Process Name" Binding="{Binding ProcessName}" Width="*"/>
                 <DataGridTextColumn Header="Process ID" Binding="{Binding ProcessID}" Width="*"/>

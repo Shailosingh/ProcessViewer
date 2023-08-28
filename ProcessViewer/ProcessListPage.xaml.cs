@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,28 @@ namespace ProcessViewer
         {
             InitializeComponent();
             
+            Debug.WriteLine("ProcessListPage constructed");
+        }
+
+        ~ProcessListPage()
+        {
+            Debug.WriteLine("ProcessListPage destructed");
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ProcessListPageViewModel? viewModel = DataContext as ProcessListPageViewModel;
+            viewModel?.PageUnloaded();
+            
+            Debug.WriteLine("ProcessListPage Unloaded");
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            ProcessListPageViewModel? viewModel = DataContext as ProcessListPageViewModel;
+            viewModel?.PageLoaded();
+            
+            Debug.WriteLine("ProcessListPage loaded");
         }
     }
 }

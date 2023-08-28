@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="Process Viewer" Height="540" Width="960">
     <Grid>
-        <Frame Source="ProcessListPage.xaml"/>
+        <Frame x:Name="MainWindowFrame" Source="ProcessListPage.xaml"/>
     </Grid>
 </Window>

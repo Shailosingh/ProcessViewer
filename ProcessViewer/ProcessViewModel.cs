@@ -39,6 +39,9 @@ namespace ProcessViewer
         [ObservableProperty]
         int numberOfThreads;
 
+        [ObservableProperty]
+        bool isRunning;
+
         //Formatted datafields
         public string FormattedPrivateBytes => $"{PrivateBytes / 1024:N0} K";
         public string FormattedWorkingSet => $"{WorkingSetBytes / 1024:N0} K";
@@ -47,23 +50,37 @@ namespace ProcessViewer
         //Constructor
         public ProcessViewModel(Process process)
         {
-            //IN CONSTRUCTOR, IF MODULE PATH IS CAUGHT, THEN THIS PROCESS'S ACCESS IS DENIED. RECORD THIS AND DO SOMETHING ABOUT IT REGARDING IsRunning AND DataGrid!
             CurrentProcess = process;
-
-            ProcessName = CurrentProcess.ProcessName;
-            ProcessID = CurrentProcess.Id;
-            WorkingSetBytes = CurrentProcess.WorkingSet64;
-            PrivateBytes = CurrentProcess.PrivateMemorySize64;
-            NumberOfThreads = CurrentProcess.Threads.Count;
-            MainWindowName = CurrentProcess.MainWindowTitle == "" ? "~" : CurrentProcess.MainWindowTitle; //Puts ~ if there is no Main Window title
+            IsRunning = true;
 
             try
             {
-                ModulePath = CurrentProcess.MainModule?.FileName ?? "~"; //Puts ~ if NULL
+                ProcessName = CurrentProcess.ProcessName;
+                ProcessID = CurrentProcess.Id;
+                WorkingSetBytes = CurrentProcess.WorkingSet64;
+                PrivateBytes = CurrentProcess.PrivateMemorySize64;
+                NumberOfThreads = CurrentProcess.Threads.Count;
+                MainWindowName = CurrentProcess.MainWindowTitle == "" ? "~" : CurrentProcess.MainWindowTitle; //Puts ~ if there is no Main Window title
+
+                try
+                {
+                    ModulePath = CurrentProcess.MainModule?.FileName ?? "~"; //Puts ~ if NULL
+                }
+                catch (Exception e)
+                {
+                    ModulePath = e.Message;
+                }
             }
-            catch (Exception e)
+            catch(Exception)
             {
-                ModulePath = e.Message;
+                ProcessName = "~";
+                ProcessID = 0;
+                MainWindowName = "~";
+                ModulePath = "~";
+                WorkingSetBytes = 0;
+                PrivateBytes = 0;
+                NumberOfThreads = 0;
+                IsRunning = false;
             }
         }
 
@@ -76,6 +93,7 @@ namespace ProcessViewer
             WorkingSetBytes = 0;
             PrivateBytes = 0;
             NumberOfThreads = 0;
+            IsRunning = false;
         }
 
         public void Refresh()
