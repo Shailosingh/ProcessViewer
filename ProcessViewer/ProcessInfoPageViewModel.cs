@@ -75,9 +75,9 @@ namespace ProcessViewer
                 });
                 if (isSuccess)
                 {
-                    try
+                    try //If this fails and throws exception, it is okay but, the program will begin freezing up again as the GC is allowed to run again. Currently unavoidable
                     {
-                        GC.EndNoGCRegion();
+                        GC.EndNoGCRegion(); 
                     }
                     catch { }
                 }
