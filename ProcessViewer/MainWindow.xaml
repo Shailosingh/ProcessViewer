@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProcessViewer"
         mc:Ignorable="d"
-        Title="Process Viewer" Height="540" Width="960">
+        Title="Process Viewer" Height="540" Width="960"
+        Closing="Window_Closing">
     <Grid>
         <Frame x:Name="MainWindowFrame" Source="ProcessListPage.xaml"/>
     </Grid>

@@ -25,6 +25,12 @@ namespace ProcessViewer
         {
             InitializeComponent();
             NavigationController.SetFrame(MainWindowFrame);
+            DebugOutputController.Start();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            DebugOutputController.End();
         }
     }
 }
